@@ -1,0 +1,438 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Light Theme layout (Default) */
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f8fafc;
+  
+  --brand-primary: #3b82f6; /* Light Blue */
+  --brand-secondary: #f97316; /* Light Orange */
+  --brand-gradient: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  --brand-glow: rgba(59, 130, 246, 0.4);
+
+  --text-primary: #334155; /* Dark Gray instead of black */
+  --text-secondary: #64748b; /* Lighter Gray for W.I.P box */
+  --text-muted: #94a3b8;
+
+  --bg-overlay: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.92));
+
+  --border-color: #cbd5e1;
+  --border-glow: #94a3b8;
+  
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-md: 0 10px 15px rgba(0,0,0,0.3);
+  --shadow-glow: 0 15px 50px rgba(59, 130, 246, 0.4);
+  --shadow-glow-hover: 0 20px 60px rgba(59, 130, 246, 0.6);
+  
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color-scheme: light;
+}
+
+html.dark {
+  /* Dark Theme layout */
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #141416;
+  --bg-tertiary: #1c1c1e;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --bg-overlay: linear-gradient(rgba(10, 10, 12, 0.4), rgba(10, 10, 12, 0.7));
+
+  --border-color: #27272a;
+  --border-glow: #3f3f46;
+  
+  --glass-bg: rgba(20, 20, 22, 0.85);
+
+  color-scheme: dark;
+}
+
+html.dark .glass-panel {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-glow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+html.dark .glass-panel:hover {
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: var(--shadow-glow-hover);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  
+  background-image: var(--bg-overlay), url('/factory_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  text-align: center;
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.92); /* Heavily dense frosted white */
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 1); /* Sharp Apple white edge */
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  /* Floating neon glow stacked with shiny inner lip */
+  box-shadow: var(--shadow-glow), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  transition: var(--transition);
+  max-width: 600px;
+  width: 100%;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: var(--shadow-glow-hover), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px); /* Float upward physically on hover */
+}
+
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes floatBot {
+  0% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-12px) scale(1.05); color: var(--brand-secondary); }
+  100% { transform: translateY(0px) scale(1); color: var(--brand-primary); }
+}
+
+.bot-animate {
+  animation: floatBot 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px var(--brand-glow));
+}
+
+.footer-credits {
+  margin-top: 3rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  background-size: 200% auto;
+}
+
+.footer-credits:hover {
+  background-image: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateY(-2px);
+  animation: shine 3s linear infinite;
+}
+
+/* Theme Toggle UI */
+.theme-toggle {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+/* Header UI Navigation Pane */
+.top-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 100;
+}
+
+.brand-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brand-section .brand-title {
+  font-size: 2rem; /* Larger Brand Title */
+  margin-bottom: 0;
+}
+
+.slogan-glow {
+  font-size: 0.95rem; /* Larger Slogan to match logo */
+  font-weight: 600;
+  background: linear-gradient(to right, var(--text-secondary) 20%, var(--brand-primary) 40%, #ffffff 50%, var(--brand-primary) 60%, var(--text-secondary) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  animation: runEffect 3.5s linear infinite;
+  background-size: 200% auto;
+}
+
+@keyframes runEffect {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.theme-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.theme-btn:hover {
+  color: var(--brand-primary);
+  background: var(--bg-tertiary);
+}
+
+.theme-btn.active {
+  color: var(--brand-primary);
+  background: var(--bg-secondary);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Contact Form Specific Styles */
+.contact-panel {
+  max-width: 500px !important;
+  padding: 2.5rem !important;
+}
+
+.construction-title {
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.contact-prompt {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-input {
+  width: 100%;
+  height: 48px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Button Reset & Layout */
+.btn {
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  height: 50px;
+}
+
+.btn-primary {
+  background: var(--brand-gradient);
+  color: white;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--brand-secondary), var(--brand-primary));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  filter: grayscale(40%);
+}
+
+.submit-btn {
+  margin-top: 0.5rem;
+}
+
+.status-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.status-message.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.status-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+@keyframes fadeIn { 
+  from { opacity: 0; transform: translateY(10px); } 
+  to { opacity: 1; transform: translateY(0); } 
+}
+.animate-fade-in { 
+  animation: fadeIn 0.4s ease-out forwards; 
+}
+
+/* ========================================================= */
+/* MOBILE RESPONSIVE LAYOUT (iPhone / Mobile Width Scaling)  */
+/* ========================================================= */
+@media (max-width: 768px) {
+  /* Restructure Header to stack vertically and center cleanly */
+  .top-nav {
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Removes overlap so main panels naturally flow securely beneath it */
+    padding: 2rem 1rem 1rem 1rem;
+    gap: 1.5rem;
+  }
+  
+  .brand-section {
+    align-items: center;
+  }
+  
+  .brand-title {
+    font-size: 1.7rem !important;
+  }
+  
+  .slogan-glow {
+    margin-left: 0 !important;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  
+  .app-container {
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Shrink heavy desktop glass padding strictly to protect the mobile viewport bound */
+  .glass-panel {
+    padding: 2rem 1.5rem !important;
+    margin-top: 1rem !important;
+    width: 100%;
+  }
+  
+  .construction-title {
+    font-size: 2.1rem !important;
+    text-align: center;
+    line-height: 1.2;
+  }
+  
+  .contact-prompt {
+    font-size: 1rem !important;
+    text-align: center;
+  }
+}
