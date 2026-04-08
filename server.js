@@ -12,22 +12,40 @@ dotenv.config();
 
 const app = express();
 
+// Nodemailer transporter — created once at startup, reused for every request
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
 /* --- OWASP SECURITY MIDDLEWARE --- */
-// 1. Helmet: Sets strict DNS, XSS, and Clickjacking HTTP headers
+// 1. Helmet: Sets secure HTTP headers (CSP enabled in production)
 app.use(helmet({
-  contentSecurityPolicy: false, // Disabled locally to allow React/Vite dev server scripts to run undisturbed
+  contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false,
 }));
 
-// 2. API Rate Limiting: Lock down spam/DDoS on contact form
+// 2. CORS: Restrict to own domain in production
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? ['https://workfactory.ai', 'https://www.workfactory.ai']
+  : true; // allow all in dev
+
+app.use(cors({ origin: allowedOrigins }));
+
+// 3. Trust proxy headers from Nginx (needed for correct rate-limit IP)
+app.set('trust proxy', 1);
+
+// 4. API Rate Limiting: Lock down spam/DDoS on contact form
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // Limit each IP to 5 requests per window
   message: { error: 'Too many requests from this IP, please try again after 15 minutes.' },
-  standardHeaders: true, 
+  standardHeaders: true,
   legacyHeaders: false,
 });
 
-app.use(cors());
 app.use(express.json());
 
 // Endpoint to handle the contact form submission securely
@@ -43,16 +61,6 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
   name = name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   email = String(email).trim();
   phone = phone.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-  // Create reusable transporter object using the default SMTP transport
-  // Usually, "gmail" is adequate. If Gmail blocks it, use Google App Passwords!
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
 
   // Setup email data
   const mailOptions = {

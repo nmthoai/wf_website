@@ -1,0 +1,18 @@
+services:
+  wf-website:
+    build: .
+    container_name: wf-website
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - wf-network
+
+networks:
+  wf-network:
+    driver: bridge
