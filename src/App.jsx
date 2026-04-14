@@ -12,12 +12,13 @@ export const ContentContext = React.createContext(null);
 
 function App() {
   const [content, setContent] = useState(null);
-  const [theme, setTheme] = useState('system');
-  const [lang, setLang] = useState('en');
+  const [theme, setTheme] = useState(localStorage.getItem('wf_theme') || 'system');
+  const [lang, setLang] = useState(localStorage.getItem('wf_lang') || 'en');
   const [langOpen, setLangOpen] = useState(false);
   const [themeOpen, setThemeOpen] = useState(false);
 
   useEffect(() => {
+    localStorage.setItem('wf_lang', lang);
     fetch(`/api/content?lang=${lang}`)
       .then(res => res.json())
       .then(data => {
@@ -26,12 +27,12 @@ function App() {
           return; // Do not overwrite content state on backend failure
         }
         setContent(data);
-        if (data.theme) setTheme(data.theme);
       })
       .catch(err => console.error("Could not load content CMS", err));
   }, [lang]);
 
   useEffect(() => {
+    localStorage.setItem('wf_theme', theme);
     const root = window.document.documentElement;
     if (theme === 'system') {
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
