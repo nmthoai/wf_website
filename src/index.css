@@ -11,9 +11,9 @@
   --brand-gradient: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
   --brand-glow: rgba(59, 130, 246, 0.4);
 
-  --text-primary: #334155; /* Dark Gray instead of black */
-  --text-secondary: #64748b; /* Lighter Gray for W.I.P box */
-  --text-muted: #94a3b8;
+  --text-primary: #0f172a; /* Extremely deep black/slate for maximum contrast */
+  --text-secondary: #334155; /* Dark slate for prominent subtext */
+  --text-muted: #475569;
 
   /* Replaced the gloomy dark wash with a bright, optimistic, clear wash */
   --bg-overlay: linear-gradient(rgba(255, 255, 255, 0.3), rgba(241, 245, 249, 0.6));
@@ -46,9 +46,9 @@ html.dark {
   --bg-secondary: #141416;
   --bg-tertiary: #1c1c1e;
 
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --text-primary: #ffffff; /* Pure piercing white */
+  --text-secondary: #e2e8f0; /* Super bright slate */
+  --text-muted: #94a3b8;
 
   /* Let the cinematic factory pop beautifully by drastically lightening the overlay wall */
   --bg-overlay: linear-gradient(rgba(10, 10, 12, 0.15), rgba(10, 10, 12, 0.45));
