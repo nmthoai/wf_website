@@ -87,13 +87,20 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  
+  z-index: 0;
+}
+
+/* Safari-safe fixed background layer directly overriding the background-attachment: fixed bug */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
   background-image: var(--bg-overlay), var(--bg-image);
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   background-repeat: no-repeat;
-  z-index: 0;
+  z-index: -2;
+  pointer-events: none;
 }
 
 body::before {
