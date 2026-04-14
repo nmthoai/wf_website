@@ -91,13 +91,11 @@ function App() {
                   </button>
                   {langOpen && (
                     <div 
+                      className="glass-dropdown"
                       onMouseLeave={() => setLangOpen(false)}
                       style={{ 
                         position: 'absolute', top: '-0.25rem', left: '50%', transform: 'translateX(-50%)', 
-                        background: 'var(--bg-secondary)', backdropFilter: 'blur(24px)', 
-                        WebkitBackdropFilter: 'blur(24px)', borderRadius: 'var(--radius-full)', padding: '0.25rem', 
-                        display: 'flex', flexDirection: 'column', gap: '0.25rem', 
-                        border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)', zIndex: 1000
+                        padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.25rem', zIndex: 1000
                       }}
                     >
                       <button className={`theme-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => { setLang('en'); setLangOpen(false); }} title="English" style={{ fontSize: '0.95rem', fontWeight: 600, textTransform: 'lowercase' }}>.en</button>
@@ -116,13 +114,11 @@ function App() {
                   </button>
                   {themeOpen && (
                     <div 
+                      className="glass-dropdown"
                       onMouseLeave={() => setThemeOpen(false)}
                       style={{ 
                         position: 'absolute', top: '-0.25rem', left: '50%', transform: 'translateX(-50%)', 
-                        background: 'var(--bg-secondary)', backdropFilter: 'blur(24px)', 
-                        WebkitBackdropFilter: 'blur(24px)', borderRadius: 'var(--radius-full)', padding: '0.25rem', 
-                        display: 'flex', flexDirection: 'column', gap: '0.25rem', 
-                        border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)', zIndex: 1000
+                        padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.25rem', zIndex: 1000
                       }}
                     >
                       <button className={`theme-btn ${theme === 'system' ? 'active' : ''}`} onClick={() => { setTheme('system'); setThemeOpen(false); }} title="System"><Monitor size={16} /></button>
