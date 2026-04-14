@@ -1,0 +1,8 @@
+#!/usr/bin/expect -f
+set password "iL0vemyf@mily22717"
+set ip "194.233.68.225"
+spawn ssh -o StrictHostKeyChecking=no root@$ip "docker ps && cat /root/wf_website/.env | grep GEMINI"
+expect {
+    "assword:" { send "$password\r"; exp_continue }
+    eof
+}

@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+set password "iL0vemyf@mily22717"
+set ip "194.233.68.225"
+spawn ssh -o StrictHostKeyChecking=no root@$ip
+expect {
+    "assword:" { send "$password\r"; exp_continue }
+    "# " { send "find /root /home /opt /var/www -name 'docker-compose.yml' -o -name 'wf_website'\r" }
+}
+expect "# " { send "docker ps\r" }
+expect "# " { send "exit\r" }
+expect eof

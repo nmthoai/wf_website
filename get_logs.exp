@@ -1,0 +1,10 @@
+#!/usr/bin/expect -f
+set password "iL0vemyf@mily22717"
+set ip "194.233.68.225"
+spawn ssh -o StrictHostKeyChecking=no root@$ip
+expect {
+    "assword:" { send "$password\r"; exp_continue }
+    "# " { send "docker logs wf-website --tail 50\r" }
+}
+expect "# " { send "exit\r" }
+expect eof

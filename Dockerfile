@@ -25,9 +25,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --omit=dev
 
-# Copy only the compiled frontend and the server code
+# Copy only the compiled frontend, server code, and the flat-file CMS data
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server.js ./
+COPY --from=builder /app/data ./data
 
 # Set environment
 ENV NODE_ENV=production
