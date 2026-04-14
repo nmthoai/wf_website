@@ -22,6 +22,7 @@
   --border-glow: #94a3b8;
   
   --glass-bg: rgba(255, 255, 255, 0.6); /* Softened glass density since background is now beautifully bright */
+  --glass-blur: blur(24px) saturate(150%); /* Default thick frost for light mode */
   
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -35,6 +36,7 @@
   
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --bg-image: url('/factory_bg_light.png');
+  --bg-blur: blur(6px); /* Stronger blur for light mode clean feel */
   color-scheme: light;
 }
 
@@ -46,27 +48,30 @@ html.dark {
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
-  /* Dark mode stays cinematic and moody */
-  --bg-overlay: linear-gradient(rgba(10, 10, 12, 0.6), rgba(10, 10, 12, 0.8));
+  /* Let the cinematic factory pop beautifully by drastically lightening the overlay wall */
+  --bg-overlay: linear-gradient(rgba(10, 10, 12, 0.15), rgba(10, 10, 12, 0.45));
+  --bg-blur: blur(2px); /* Sharper background */
 
   --border-color: #27272a;
   --border-glow: #3f3f46;
   
-  --glass-bg: rgba(20, 20, 22, 0.45);
+  /* Make the glass extremely sheer so the factory is visibly seen through it */
+  --glass-bg: rgba(15, 20, 25, 0.15);
+  --glass-blur: blur(10px); /* Thin see-thru glass instead of thick foggy frost */
+  
   --bg-image: url('/factory_bg_dark.png');
 
   color-scheme: dark;
 }
 
 html.dark .glass-panel {
-  border-color: rgba(59, 130, 246, 0.5);
+  border-color: rgba(59, 130, 246, 0.4);
   background: var(--glass-bg);
   box-shadow: var(--shadow-glow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 html.dark .glass-panel:hover {
@@ -107,8 +112,8 @@ body::before {
   content: '';
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
-  backdrop-filter: blur(6px); /* Soften background details globally */
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: var(--bg-blur); /* Soften background details globally */
+  -webkit-backdrop-filter: var(--bg-blur);
   z-index: -1;
   pointer-events: none;
 }
@@ -125,8 +130,8 @@ body::before {
 
 .glass-panel {
   background: var(--glass-bg); /* Use dynamic variable for correct theme brightness */
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: var(--radius-lg);
   padding: 3rem;
@@ -145,8 +150,8 @@ body::before {
 
 .glass-dropdown {
   background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
