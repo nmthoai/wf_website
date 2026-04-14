@@ -22,7 +22,7 @@
   --border-glow: #94a3b8;
   
   --glass-bg: rgba(255, 255, 255, 0.6); /* Softened glass density since background is now beautifully bright */
-  --glass-blur: blur(15px) saturate(150%); /* Thin 15px frost for light mode */
+  --glass-blur: blur(5px) saturate(150%); /* Thin 5px frost for light mode */
   
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -59,7 +59,7 @@ html.dark {
   
   /* Make the glass extremely sheer so the factory is visibly seen through it */
   --glass-bg: rgba(15, 20, 25, 0.15);
-  --glass-blur: blur(15px); /* Thin see-thru 15px glass */
+  --glass-blur: blur(5px); /* Thin see-thru 5px glass */
   
   --bg-image: url('/factory_bg_dark.png');
 
@@ -95,27 +95,31 @@ body {
   z-index: 0;
 }
 
-/* Safari-safe fixed background layer directly overriding the background-attachment: fixed bug */
-body::after {
-  content: '';
+/* Unified Background Anchor Layer: Solves Safari background-attachment bug AND Chrome backdrop-filter layering bug simultaneously */
+.fixed-bg {
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   background-image: var(--bg-overlay), var(--bg-image);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: -2;
+  z-index: 0;
   pointer-events: none;
 }
 
-body::before {
+.fixed-bg::after {
   content: '';
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  position: absolute;
+  inset: 0;
   backdrop-filter: var(--bg-blur); /* Soften background details globally */
   -webkit-backdrop-filter: var(--bg-blur);
-  z-index: -1;
   pointer-events: none;
+}
+
+.app-content-wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
 }
 
 .app-container {
