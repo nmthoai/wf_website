@@ -1,0 +1,44 @@
+{
+  "theme": "system",
+  "seo": {
+    "siteName": "Workfactory.AI",
+    "description": "Jede Geschäftsarbeit wird mit KI erledigt",
+    "socialImage": "/factory_bg_dark.png"
+  },
+  "home": {
+    "heroTitle": "WorkFactory.AI",
+    "heroSubtitle": "Jede Geschäftsarbeit wird mit KI erledigt",
+    "constructionTitle": "Unsere Website befindet sich derzeit im Aufbau",
+    "prompt": "Hallo, ich bin Thomas Nguyen - Gründer/CEO von Workfactory.ai\\nWenn Sie an unserer Arbeit interessiert sind, hinterlassen Sie bitte Ihre Kontaktdaten, ich werde Ihnen in Kürze antworten."
+  },
+  "services": {
+    "title": "Unsere Produkte & Dienstleistungen",
+    "items": [
+      {
+        "id": "ai-agents",
+        "name": "Maßgeschneiderte KI-Agenten",
+        "description": "Maßgeschneiderte Modelle der künstlichen Intelligenz, die Ihre Geschäftsabläufe automatisieren."
+      }
+    ]
+  },
+  "about": {
+    "title": "Über uns",
+    "vision": "Wir glauben, dass KI die neue Elektrizität ist.",
+    "team": [
+      {
+        "name": "Thomas Nguyen",
+        "role": "Gründer & CEO"
+      }
+    ]
+  },
+  "contact": {
+    "email": "nguyenminhthoai@gmail.com",
+    "phone": "+1-555-1234"
+  },
+  "nav": {
+    "home": "Startseite",
+    "services": "Ausstattung",
+    "about": "Über uns",
+    "contact": "Kontakt"
+  }
+}

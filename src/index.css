@@ -15,12 +15,13 @@
   --text-secondary: #64748b; /* Lighter Gray for W.I.P box */
   --text-muted: #94a3b8;
 
-  --bg-overlay: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.92));
+  /* Replaced the gloomy dark wash with a bright, optimistic, clear wash */
+  --bg-overlay: linear-gradient(rgba(255, 255, 255, 0.3), rgba(241, 245, 249, 0.6));
 
   --border-color: #cbd5e1;
   --border-glow: #94a3b8;
   
-  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-bg: rgba(255, 255, 255, 0.6); /* Softened glass density since background is now beautifully bright */
   
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -33,6 +34,7 @@
   --shadow-glow-hover: 0 20px 60px rgba(59, 130, 246, 0.6);
   
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --bg-image: url('/factory_bg_light.png');
   color-scheme: light;
 }
 
@@ -44,14 +46,17 @@ html.dark {
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
+  --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
-  --bg-overlay: linear-gradient(rgba(10, 10, 12, 0.4), rgba(10, 10, 12, 0.7));
+  /* Dark mode stays cinematic and moody */
+  --bg-overlay: linear-gradient(rgba(10, 10, 12, 0.6), rgba(10, 10, 12, 0.8));
 
   --border-color: #27272a;
   --border-glow: #3f3f46;
   
-  --glass-bg: rgba(20, 20, 22, 0.85);
+  --glass-bg: rgba(20, 20, 22, 0.45);
+  --bg-image: url('/factory_bg_dark.png');
 
   color-scheme: dark;
 }
@@ -83,11 +88,22 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   
-  background-image: var(--bg-overlay), url('/factory_bg.png');
+  background-image: var(--bg-overlay), var(--bg-image);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  z-index: 0;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  backdrop-filter: blur(6px); /* Soften background details globally */
+  -webkit-backdrop-filter: blur(6px);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .app-container {
@@ -101,10 +117,10 @@ body {
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.92); /* Heavily dense frosted white */
-  backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 1); /* Sharp Apple white edge */
+  background: var(--glass-bg); /* Use dynamic variable for correct theme brightness */
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: var(--radius-lg);
   padding: 3rem;
   /* Floating neon glow stacked with shiny inner lip */
@@ -163,12 +179,16 @@ body {
 
 .footer-credits {
   margin-top: 3rem;
+  padding: 0.75rem 1.5rem;
   font-size: 0.95rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  color: var(--text-primary);
+  font-weight: 600;
   cursor: pointer;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   transition: var(--transition);
-  background-size: 200% auto;
 }
 
 .footer-credits:hover {
@@ -194,15 +214,20 @@ body {
 
 /* Header UI Navigation Pane */
 .top-nav {
-  position: absolute;
+  position: absolute; /* or fixed if you want it sticky */
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1.5rem 2.5rem;
+  padding: 1.5rem 3rem;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center; /* Center vertically for a clean header */
   z-index: 100;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
 .brand-section {
@@ -262,6 +287,36 @@ body {
   to {
     background-position: 200% center;
   }
+}
+
+.main-nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  transition: var(--transition);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.main-nav a:hover {
+  color: var(--brand-primary);
+  background: var(--bg-tertiary);
+}
+
+.admin-lock {
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+
+.admin-lock:hover {
+  opacity: 1;
 }
 
 /* Contact Form Specific Styles */

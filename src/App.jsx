@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { Settings, Send, CheckCircle, AlertCircle, Sun, Moon, Monitor, Layers, Bot } from 'lucide-react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { Sun, Moon, Monitor, Layers, Lock } from 'lucide-react';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Admin from './pages/Admin';
+
+export const ContentContext = React.createContext(null);
 
 function App() {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
-  const [status, setStatus] = useState('idle'); // idle, loading, success, error
-  const [message, setMessage] = useState('');
-  
-  // Theme state: 'system', 'light', 'dark'
+  const [content, setContent] = useState(null);
   const [theme, setTheme] = useState('system');
+  const [lang, setLang] = useState('en');
+  const [langOpen, setLangOpen] = useState(false);
+  const [themeOpen, setThemeOpen] = useState(false);
 
-  // Handle Theme Application
+  useEffect(() => {
+    fetch(`/api/content?lang=${lang}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          console.error("Backend CMS Error:", data.error);
+          return; // Do not overwrite content state on backend failure
+        }
+        setContent(data);
+        if (data.theme) setTheme(data.theme);
+      })
+      .catch(err => console.error("Could not load content CMS", err));
+  }, [lang]);
+
   useEffect(() => {
     const root = window.document.documentElement;
-    
     if (theme === 'system') {
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (systemDark) {
-        root.classList.add('dark');
-      } else {
-        root.classList.remove('dark');
-      }
-
-      // Add listener to automatically switch if user changes OS preferences while on 'system'
-      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-      const listener = (e) => {
-        if (e.matches) root.classList.add('dark');
-        else root.classList.remove('dark');
-      };
-      mediaQuery.addEventListener('change', listener);
-      return () => mediaQuery.removeEventListener('change', listener);
-
+      if (systemDark) root.classList.add('dark');
+      else root.classList.remove('dark');
     } else if (theme === 'dark') {
       root.classList.add('dark');
     } else {
@@ -37,156 +44,116 @@ function App() {
     }
   }, [theme]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('loading');
-    setMessage('');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus('success');
-        setMessage(data.success || 'Information received. We will contact you soon!');
-        setFormData({ name: '', email: '', phone: '' }); // Clear form
-      } else {
-        setStatus('error');
-        setMessage(data.error || 'Failed to send information.');
-      }
-    } catch (err) {
-      console.error('Request failed. Is server.js running?', err);
-      setStatus('error');
-      setMessage('Network error. Make sure your local Express backend is running.');
-    }
-  };
+  if (!content) return null; // Wait for CMS
 
   return (
-    <div className="app-container">
-      {/* Top Navigation Pane (Header) */}
-      <header className="top-nav">
-        <div className="brand-section">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <Layers size={36} color="var(--brand-primary)" />
-            <h1 className="brand-title">WorkFactory.AI</h1>
-          </div>
-          <div className="slogan-glow" style={{ marginTop: '0.2rem', marginLeft: '3rem' }}>
-            Every Business Work Gets Done with AI
-          </div>
-        </div>
+    <HelmetProvider>
+      <ContentContext.Provider value={{ content, setContent, lang, setLang }}>
+        <Router>
+          <div className="app-container">
+            <Helmet>
+              <title>{content.seo.siteName}</title>
+              <meta name="description" content={content.seo.description} />
+              <script type="application/ld+json">
+                {JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Organization",
+                  "name": content.seo.siteName,
+                  "description": content.seo.description
+                })}
+              </script>
+            </Helmet>
+            
+            <header className="top-nav">
+              <div className="brand-section">
+                <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <Layers size={36} color="var(--brand-primary)" />
+                  <h1 className="brand-title">{content.seo.siteName}</h1>
+                </Link>
+                <div className="slogan-glow" style={{ marginLeft: '1rem', marginTop: '0.2rem' }}>
+                  {content.home.heroSubtitle}
+                </div>
+              </div>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+                <nav className="main-nav">
+                  <Link to="/">{content.nav.home}</Link>
+                  <Link to="/services">{content.nav.services}</Link>
+                  <Link to="/about">{content.nav.about}</Link>
+                  <Link to="/contact">{content.nav.contact}</Link>
+                </nav>
+              </div>
 
-        {/* Theme Toggle Selector */}
-        <div className="theme-toggle">
-          <button 
-            className={`theme-btn ${theme === 'system' ? 'active' : ''}`} 
-            onClick={() => setTheme('system')}
-            title="System Default"
-          >
-            <Monitor size={16} />
-          </button>
-          <button 
-            className={`theme-btn ${theme === 'light' ? 'active' : ''}`} 
-            onClick={() => setTheme('light')}
-            title="Light Mode"
-          >
-            <Sun size={16} />
-          </button>
-          <button 
-            className={`theme-btn ${theme === 'dark' ? 'active' : ''}`} 
-            onClick={() => setTheme('dark')}
-            title="Dark Mode"
-          >
-            <Moon size={16} />
-          </button>
-        </div>
-      </header>
+              <div className="theme-toggle" style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <button className="theme-btn" style={{ fontSize: '0.95rem', fontWeight: 600, paddingRight: '0.2rem', textTransform: 'lowercase', letterSpacing: '0.5px' }} onClick={() => setLangOpen(!langOpen)}>
+                    {lang === 'en' ? '.en' : lang === 'vn' ? '.vn' : lang === 'de' ? '.de' : '.cn'}
+                  </button>
+                  {langOpen && (
+                    <div 
+                      onMouseLeave={() => setLangOpen(false)}
+                      style={{ 
+                        position: 'absolute', top: '-0.25rem', left: '50%', transform: 'translateX(-50%)', 
+                        background: 'var(--bg-secondary)', backdropFilter: 'blur(24px)', 
+                        WebkitBackdropFilter: 'blur(24px)', borderRadius: 'var(--radius-full)', padding: '0.25rem', 
+                        display: 'flex', flexDirection: 'column', gap: '0.25rem', 
+                        border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)', zIndex: 1000
+                      }}
+                    >
+                      <button className={`theme-btn ${lang === 'en' ? 'active' : ''}`} onClick={() => { setLang('en'); setLangOpen(false); }} title="English" style={{ fontSize: '0.95rem', fontWeight: 600, textTransform: 'lowercase' }}>.en</button>
+                      <button className={`theme-btn ${lang === 'vn' ? 'active' : ''}`} onClick={() => { setLang('vn'); setLangOpen(false); }} title="Vietnamese" style={{ fontSize: '0.95rem', fontWeight: 600, textTransform: 'lowercase' }}>.vn</button>
+                      <button className={`theme-btn ${lang === 'de' ? 'active' : ''}`} onClick={() => { setLang('de'); setLangOpen(false); }} title="German" style={{ fontSize: '0.95rem', fontWeight: 600, textTransform: 'lowercase' }}>.de</button>
+                      <button className={`theme-btn ${lang === 'cn' ? 'active' : ''}`} onClick={() => { setLang('cn'); setLangOpen(false); }} title="Chinese" style={{ fontSize: '0.95rem', fontWeight: 600, textTransform: 'lowercase' }}>.cn</button>
+                    </div>
+                  )}
+                </div>
+                
+                <div style={{ width: '1px', height: '16px', background: 'var(--border-color)', margin: '0 0.25rem' }}></div>
+                
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <button className="theme-btn" onClick={() => setThemeOpen(!themeOpen)}>
+                    {theme === 'system' ? <Monitor size={16} /> : theme === 'light' ? <Sun size={16} /> : <Moon size={16} />}
+                  </button>
+                  {themeOpen && (
+                    <div 
+                      onMouseLeave={() => setThemeOpen(false)}
+                      style={{ 
+                        position: 'absolute', top: '-0.25rem', left: '50%', transform: 'translateX(-50%)', 
+                        background: 'var(--bg-secondary)', backdropFilter: 'blur(24px)', 
+                        WebkitBackdropFilter: 'blur(24px)', borderRadius: 'var(--radius-full)', padding: '0.25rem', 
+                        display: 'flex', flexDirection: 'column', gap: '0.25rem', 
+                        border: '1px solid var(--border-color)', boxShadow: 'var(--shadow-md)', zIndex: 1000
+                      }}
+                    >
+                      <button className={`theme-btn ${theme === 'system' ? 'active' : ''}`} onClick={() => { setTheme('system'); setThemeOpen(false); }} title="System"><Monitor size={16} /></button>
+                      <button className={`theme-btn ${theme === 'light' ? 'active' : ''}`} onClick={() => { setTheme('light'); setThemeOpen(false); }} title="Light"><Sun size={16} /></button>
+                      <button className={`theme-btn ${theme === 'dark' ? 'active' : ''}`} onClick={() => { setTheme('dark'); setThemeOpen(false); }} title="Dark"><Moon size={16} /></button>
+                    </div>
+                  )}
+                </div>
 
-      {/* Target Status Panel */}
-      <div className="glass-panel" style={{ marginTop: '6rem', marginBottom: '2rem' }}>
-        <h2 className="construction-title" style={{ marginBottom: '1.5rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-          Our website is currently under construction
-        </h2>
-        <div style={{ display: 'flex', justifyContent: 'center', color: 'var(--brand-primary)' }}>
-          <Bot size={56} className="bot-animate" />
-        </div>
-      </div>
+                <div style={{ width: '1px', height: '16px', background: 'var(--border-color)', margin: '0 0.25rem' }}></div>
+                <Link to="/admin" className="theme-btn admin-lock"><Lock size={16} /></Link>
+              </div>
+            </header>
 
-      {/* Secure Contact Form Panel */}
-      <div className="glass-panel contact-panel">
-        <p className="contact-prompt">
-          Hi, I'm <strong>Thomas Nguyen</strong> - Founder/CEO of Workfactory.ai<br />
-          If you are interested in our work, kindly drop your contact, I will reply you shortly.
-        </p>
-        
-        <form onSubmit={handleSubmit} className="contact-form">
-          <div className="form-group">
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="Your Name" 
-              className="form-input" 
-              value={formData.name} 
-              onChange={handleChange} 
-              required 
-            />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services/*" element={<Services />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/admin" element={<Admin />} />
+              </Routes>
+            </main>
+            
+            <div className="footer-credits">
+              Created by {content.seo.siteName} - 2026
+            </div>
           </div>
-          <div className="form-group">
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Email Address" 
-              className="form-input" 
-              value={formData.email} 
-              onChange={handleChange} 
-              required 
-            />
-          </div>
-          <div className="form-group">
-            <input 
-              type="tel" 
-              name="phone" 
-              placeholder="Phone Number" 
-              className="form-input" 
-              value={formData.phone} 
-              onChange={handleChange} 
-              required 
-            />
-          </div>
-
-          <button 
-            type="submit" 
-            className="btn btn-primary submit-btn" 
-            disabled={status === 'loading'}
-          >
-            {status === 'loading' ? <Settings size={18} className="animate-spin" /> : <Send size={18} />}
-            {status === 'loading' ? 'Sending securely...' : 'Send Details'}
-          </button>
-        </form>
-
-        {status === 'success' && (
-          <div className="status-message success animate-fade-in">
-            <CheckCircle size={18} /> {message}
-          </div>
-        )}
-        {status === 'error' && (
-          <div className="status-message error animate-fade-in">
-            <AlertCircle size={18} /> {message}
-          </div>
-        )}
-      </div>
-      
-      <div className="footer-credits">
-        Created by WorkFactory.ai - 2026
-      </div>
-    </div>
+        </Router>
+      </ContentContext.Provider>
+    </HelmetProvider>
   );
 }
 

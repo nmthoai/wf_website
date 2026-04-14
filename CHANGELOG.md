@@ -10,5 +10,5 @@ All notable changes to this project will be documented in this file.
 - Responsive landing page UI signifying "Under Construction" / platform launch for WorkFactory.ai.
 - Contact form integration with Nodemailer for email notifications.
 - Security and performance middleware (`helmet`, `cors`, `express-rate-limit`).
-- Dockerfile and `deploy.sh` script for seamless Google Cloud Run deployment.
+- Dockerfile for production deployment.
 - Initial global and local styling configurations in `index.css` and App components.

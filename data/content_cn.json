@@ -1,0 +1,44 @@
+{
+  "theme": "system",
+  "seo": {
+    "siteName": "Workfactory.AI",
+    "description": "每一项业务工作都可以通过人工智能完成",
+    "socialImage": "/factory_bg_dark.png"
+  },
+  "home": {
+    "heroTitle": "WorkFactory.AI",
+    "heroSubtitle": "每一项业务工作都可以通过人工智能完成",
+    "constructionTitle": "我们的网站目前正在建设中",
+    "prompt": "你好，我是 Thomas Nguyen - Workfactory.ai 的创始人兼首席执行官\\n如果您对我们的工作感兴趣，请留下您的联系方式，我会尽快回复您。"
+  },
+  "services": {
+    "title": "我们的产品与服务",
+    "items": [
+      {
+        "id": "ai-agents",
+        "name": "定制化 AI 智能体",
+        "description": "量身定制的人工智能模型，自动化您的业务工作流程。"
+      }
+    ]
+  },
+  "about": {
+    "title": "关于我们",
+    "vision": "我们相信人工智能是新的电力。",
+    "team": [
+      {
+        "name": "Thomas Nguyen",
+        "role": "创始人兼首席执行官"
+      }
+    ]
+  },
+  "contact": {
+    "email": "nguyenminhthoai@gmail.com",
+    "phone": "+1-555-1234"
+  },
+  "nav": {
+    "home": "首页",
+    "services": "产品与服务",
+    "about": "关于我们",
+    "contact": "联系我们"
+  }
+}

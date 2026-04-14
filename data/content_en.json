@@ -1,0 +1,44 @@
+{
+  "theme": "system",
+  "seo": {
+    "siteName": "Workfactory.AI",
+    "description": "Every Business Work Gets Done with AI",
+    "socialImage": "/factory_bg_dark.png"
+  },
+  "home": {
+    "heroTitle": "WorkFactory.AI",
+    "heroSubtitle": "Every Business Work Gets Done with AI",
+    "constructionTitle": "Our website is currently under construction",
+    "prompt": "Hi, I'm Thomas Nguyen - Founder/CEO of Workfactory.ai\\nIf you are interested in our work, kindly drop your contact, I will reply you shortly."
+  },
+  "services": {
+    "title": "Our Products & Services",
+    "items": [
+      {
+        "id": "ai-agents",
+        "name": "Custom AI Agents",
+        "description": "Tailored artificial intelligence models that automate your business workflows."
+      }
+    ]
+  },
+  "about": {
+    "title": "About Us",
+    "vision": "We believe AI is the new electricity.",
+    "team": [
+      {
+        "name": "Thomas Nguyen",
+        "role": "Founder & CEO"
+      }
+    ]
+  },
+  "contact": {
+    "email": "nguyenminhthoai@gmail.com",
+    "phone": "+1-555-1234"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact"
+  }
+}

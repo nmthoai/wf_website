@@ -1,0 +1,44 @@
+{
+  "theme": "system",
+  "seo": {
+    "siteName": "Workfactory.AI",
+    "description": "Mọi công việc kinh doanh đều được hoàn thành bằng AI",
+    "socialImage": "/factory_bg_dark.png"
+  },
+  "home": {
+    "heroTitle": "WorkFactory.AI",
+    "heroSubtitle": "Mọi công việc kinh doanh đều được hoàn thành bằng AI",
+    "constructionTitle": "Trang web của chúng tôi hiện đang trong quá trình xây dựng",
+    "prompt": "Xin chào, tôi là Thomas Nguyễn - Nhà sáng lập/CEO của Workfactory.ai\\nNếu bạn quan tâm đến công việc của chúng tôi, vui lòng để lại thông tin liên hệ, tôi sẽ trả lời bạn sớm nhất."
+  },
+  "services": {
+    "title": "Sản phẩm & Dịch vụ của chúng tôi",
+    "items": [
+      {
+        "id": "ai-agents",
+        "name": "Tác tử AI Tùy chỉnh",
+        "description": "Các mô hình trí tuệ nhân tạo được thiết kế riêng giúp tự động hóa quy trình kinh doanh của bạn."
+      }
+    ]
+  },
+  "about": {
+    "title": "Về chúng tôi",
+    "vision": "Chúng tôi tin rằng AI là nguồn điện mới.",
+    "team": [
+      {
+        "name": "Thomas Nguyễn",
+        "role": "Nhà sáng lập & CEO"
+      }
+    ]
+  },
+  "contact": {
+    "email": "nguyenminhthoai@gmail.com",
+    "phone": "+1-555-1234"
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "services": "Dịch vụ",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ"
+  }
+}
