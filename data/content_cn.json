@@ -1,44 +1,156 @@
 {
   "theme": "system",
   "seo": {
-    "siteName": "Workfactory.AI",
-    "description": "每一项业务工作都可以通过人工智能完成",
+    "siteName": "WorkFactory.AI",
+    "description": "Every Business Work Gets Done with AI",
     "socialImage": "/factory_bg_dark.png"
   },
+  "nav": {
+    "home": "Home",
+    "services": "Offerings & Demo Kit",
+    "vision": "Sectors",
+    "about": "Team & Story",
+    "contact": "Book Discovery"
+  },
   "home": {
+    "badge": "PRACTICAL AI FOR SMBs",
     "heroTitle": "WorkFactory.AI",
-    "heroSubtitle": "每一项业务工作都可以通过人工智能完成",
-    "constructionTitle": "我们的网站目前正在建设中",
-    "prompt": "你好，我是 Thomas Nguyen - Workfactory.ai 的创始人兼首席执行官\\n如果您对我们的工作感兴趣，请留下您的联系方式，我会尽快回复您。"
+    "heroSubtitle": "Every Business Work Gets Done with AI",
+    "ctaPrimary": "Free Discovery Call",
+    "ctaSecondary": "Explore Offerings",
+    "demoTitle": "Practical AI Automation with Full Transparency & Clear Cost Tracking",
+    "stats": [
+      { "value": "20+", "label": "Years Domain Experience" },
+      { "value": "100%", "label": "Transparent Cost Tracking" },
+      { "value": "Fast", "label": "Time to Deploy" },
+      { "value": "Verified", "label": "Trust via Citations" }
+    ]
   },
   "services": {
-    "title": "我们的产品与服务",
-    "items": [
+    "badge": "CORE OFFERINGS",
+    "title": "Practical AI Services & Solutions",
+    "subtitle": "We offer structured consulting to find high-impact automation, and fast, transparent implementation to make it real.",
+    "platformBadge": "TWO PILLAR APPROACH",
+    "platform": [
       {
-        "id": "ai-agents",
-        "name": "定制化 AI 智能体",
-        "description": "量身定制的人工智能模型，自动化您的业务工作流程。"
+        "id": "consulting",
+        "title": "AI Consulting & Process Assessment",
+        "description": "Direct collaboration to analyze workflows, identify automation opportunities, and deliver a transparent implementation roadmap.",
+        "metric": "Clear reports with cost & time estimates"
+      },
+      {
+        "id": "implementation",
+        "title": "AI Implementation",
+        "description": "Professional software engineering process from requirements to handover, combining custom AI with pre-built components.",
+        "metric": "Fast, optimized, and transparent delivery"
+      }
+    ],
+    "agentsBadge": "DEMO KIT / TOOLBOX",
+    "agents": [
+      {
+        "id": "docinsight",
+        "title": "Intelligent Document Extraction",
+        "description": "Extracts key data from invoices, contracts, and forms using a multi-engine OCR cascade. Every field carries bounding box citations for verifiable trust.",
+        "metric": "Logistics, Retail, Insurance, Banking"
+      },
+      {
+        "id": "voiceagent",
+        "title": "Basic Voice Agent",
+        "description": "Handles front desk operations: answers calls, takes messages, and manages simple bookings automatically.",
+        "metric": "Retail, Logistics, Service businesses"
+      },
+      {
+        "id": "callinsight",
+        "title": "OpenClaw AI Agent",
+        "description": "Handles multi-step back-office tasks including data processing, validation, and automated notifications.",
+        "metric": "BPO & Manufacturing workflows"
+      },
+      {
+        "id": "chatagent",
+        "title": "Steve (BPO Agent)",
+        "description": "Dedicated BPO Data Processing Agent built for multi-tenant, high-volume document environments.",
+        "metric": "Single-tenant precision, Cloud engine"
+      },
+      {
+        "id": "emailinsight",
+        "title": "Simple Workflow Automator",
+        "description": "Connects email ingestion, data extraction, human approval, and system updates into a seamless flow.",
+        "metric": "Cross-industry repetitive processes"
+      }
+    ]
+  },
+  "vision": {
+    "badge": "VISION & CAPABILITIES",
+    "title": "Designed for impact across key industries",
+    "painBadge": "DEPLOYMENT & SOVEREIGNTY",
+    "painTitle": "Portable Runtime Architecture",
+    "painSubtitle": "Our agents are portable. Run them in our managed cloud, your own servers, or via an edge AI Box depending on your data sovereignty needs.",
+    "sectors": [
+      {
+        "id": "banking",
+        "title": "Banking & Finance",
+        "description": "Automating retail banking systems and secure KYC/KYB document processing."
+      },
+      {
+        "id": "insurance",
+        "title": "Insurance",
+        "description": "Streamlining claims, P&C operations, and intelligent document extraction."
+      },
+      {
+        "id": "manufacturing",
+        "title": "Manufacturing & Logistics",
+        "description": "Automating supply chain workflows, front desk operations, and invoicing."
+      },
+      {
+        "id": "bpo",
+        "title": "BPO / Digital Services",
+        "description": "Empowering back-office operations with multi-step data processing agents."
       }
     ]
   },
   "about": {
-    "title": "关于我们",
-    "vision": "我们相信人工智能是新的电力。",
+    "badge": "WHY WORKFACTORY.AI",
+    "title": "Our Strategic Moat",
+    "subtitle": "We win by being inspectable. Transparent costs, domain depth, and verifiable outputs.",
+    "references": [
+      {
+        "title": "The Transparency Promise",
+        "subtitle": "No hidden fees or black boxes",
+        "challenge": "Many AI projects fail due to hidden token costs and opaque progress tracking.",
+        "solution": "We track per-call costs from day one and provide detailed milestone reports for every project.",
+        "results": ["Clear scope & milestones", "Detailed cost ledgers", "Trustworthy delivery"]
+      },
+      {
+        "title": "Verifiable Trust Architecture",
+        "subtitle": "Bbox + citation infrastructure",
+        "challenge": "Regulated industries cannot adopt AI if outputs are not verifiable.",
+        "solution": "Every extracted field carries page-level coordinates, ensuring users can verify every claim instantly.",
+        "results": ["Audit-ready outputs", "High compliance", "Confidence in automation"]
+      }
+    ],
+    "teamBadge": "FOUNDERSHIP",
+    "teamTitle": "Deep Industry Knowledge",
+    "teamSubtitle": "Over 20+ years of hands-on experience in leading digital transformation and operational excellence.",
     "team": [
       {
         "name": "Thomas Nguyen",
-        "role": "创始人兼首席执行官"
+        "role": "Founder & CEO",
+        "image": "/thomas_nguyen.jpg",
+        "linkedin": "https://www.linkedin.com/in/thoainguyen/",
+        "bio": "Former CEO of DIGI-TEXX and COO of Innovature BPO, with 20+ years of leadership at HSBC and Standard Chartered. Thomas combines deep operational acumen with AI to bring practical, cost-effective automation to SMBs."
       }
+    ],
+    "pillars": [
+      { "title": "Business Expertise", "desc": "We understand the nuances of Banking, Logistics, and BPO operations." },
+      { "title": "Technical Depth", "desc": "Lightweight engineering, custom Python + Celery for production scale." },
+      { "title": "Practical Focus", "desc": "We favor deterministic tools and smart agents over flashy demos." }
     ]
   },
   "contact": {
-    "email": "nguyenminhthoai@gmail.com",
-    "phone": "+1-555-1234"
-  },
-  "nav": {
-    "home": "首页",
-    "services": "产品与服务",
-    "about": "关于我们",
-    "contact": "联系我们"
+    "title": "Book a Discovery Call",
+    "prompt": "Ready to explore practical AI automation for your business? Drop your details and we will discuss high-impact opportunities.",
+    "email": "thoai.nguyen@workfactory.ai",
+    "phone": "+1-555-1234",
+    "legal": "Workfactory.ai · All Rights Reserved."
   }
 }

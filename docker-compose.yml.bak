@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  wf-website:
+    build: .
+    container_name: wf-website
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - EMAIL_USER=${EMAIL_USER:-nguyenminhthoai@gmail.com}
+      - EMAIL_PASS=${EMAIL_PASS:-auirajbliicbwlij}
+    ports:
+      - "8080:8080"
+    networks:
+      - wf-network
+
+networks:
+  wf-network:
+    driver: bridge
