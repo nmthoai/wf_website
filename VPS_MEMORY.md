@@ -1,19 +1,19 @@
 # VPS LOG / MEMORY STATE
 
-**Last Updated:** 2026-04-14 (Initial Setup)
+**Last Updated:** 2026-06-15 (Production Deployment)
 
 ## Current Status
-The actual VPS environment has not yet been scanned. The VPS IP has not been provided (`redeploy.sh` shows it as empty). 
+Successfully deployed latest design and Obsidian vault content to Contabo VPS (`194.233.68.225`). Project lives at `/root/wf_website` on the remote server.
 
 ## Known Hosted Services
-* **wf-website:** Designed to run via Docker Compose on port `8080`, reverse proxied via Nginx. 
+* **wf-website:** Running via Docker Compose on port `8080` (`wf_website-wf-website` container).
+* **openclaw:** Running via Docker (`ghcr.io/openclaw/openclaw:latest`).
 
-## Active Containers (To Be Discovered)
-*(Run `docker ps` on the VPS to populate this list and avoid port overlapping)*
-* *Pending Discovery...*
+## Active Containers
+* `wf-website` (Bound to `127.0.0.1:8080->8080/tcp`)
+* `openclaw` (Internal network / no public exposed ports noted from `docker ps`)
 
 ## Port Allocations
-* `80`: Nginx (Used by wf-website reverse proxy)
-* `443`: Nginx / SSL (Expected soon via Certbot)
-* `8080`: wf-website Docker Container (Target)
-* *Pending Discovery for other ports...*
+* `80`: Nginx (Reverse proxy)
+* `443`: Nginx / SSL
+* `8080`: wf-website Docker Container

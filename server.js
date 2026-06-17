@@ -69,9 +69,9 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
   // Setup email data
   const mailOptions = {
     from: `WorkFactory Website <${process.env.EMAIL_USER}>`, // Sender address
-    to: 'nguyenminhthoai@gmail.com', // List of receivers (your secure email)
+    to: 'thoai.nguyen@workfactory.ai', // List of receivers (your secure email)
     subject: `New Contact Lead: ${name}`, // Subject line
-    text: `You have received a new contact submission from your WIP website.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nPlease reply shortly!`, // plain text body
+    text: `You have received a new contact submission from your website.\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nPlease reply shortly!`, // plain text body
   };
 
   try {
@@ -113,12 +113,14 @@ app.post('/api/admin/translate', async (req, res) => {
     return res.status(401).json({ error: 'Invalid token' });
   }
 
-  const { masterContent } = req.body;
-  if (!masterContent) return res.status(400).json({ error: 'Missing master content.' });
-
   try {
-    // 2. Overwrite English Master
-    fs.writeFileSync(path.join(process.cwd(), 'data', 'content_en.json'), JSON.stringify(masterContent, null, 2));
+    // 2. Read English Master directly from disk securely
+    const englishFilePath = path.join(process.cwd(), 'data', 'content_en.json');
+    if (!fs.existsSync(englishFilePath)) {
+      return res.status(500).json({ error: 'Source english file not found on server.' });
+    }
+    const masterContentRaw = fs.readFileSync(englishFilePath, 'utf-8');
+    const masterContent = JSON.parse(masterContentRaw);
 
     // 3. Prompt Gemini AI for structured JSON array
     const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;

@@ -15,9 +15,7 @@ export default function Admin() {
     setTranslating(true);
     try {
       const res = await fetch('/api/admin/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ masterContent: content })
+        method: 'POST'
       });
       if (res.ok) {
         alert('SUCCESS! Master file saved and AI automatically generated VN, DE, and CN files.');
